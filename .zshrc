@@ -32,7 +32,7 @@ ZSH_THEME="brantwynn"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git osx brew history last-working-dir)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -40,8 +40,53 @@ source $ZSH/oh-my-zsh.sh
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
+unset MAILCHECK
+
 unsetopt correct_all
 
-alias drush='~/bin/drush/drush'
+# default path
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/mysql/bin
+# append mysql to path
+export PATH=$PATH:/usr/local/mysql/bin
+
+# prepend homebrew to path
+export PATH=/usr/local/bin:$PATH
+
+# prepend composer to path
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+# prepend liip php to path
+export PATH=/usr/local/php5/bin:$PATH
+
+# prepend rbenv to path
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+# My custom functions
+. ~/bin/unix.sh
+. ~/bin/dice.sh
+. ~/bin/vice.sh
+. ~/bin/dfwc.sh
+. ~/bin/d8clean.sh
+. ~/bin/behat.sh
+
+# aliases
+alias pig=grunt
+alias git=hub
+alias sudp=sudo
+alias si='yes "yes" |'
+
+# Macros
+# . ~/bin/up.sh
+ls
+
+# Node Version Manager
+. ~/.nvm/nvm.sh
+
+# include AH profile
+if [ -f ~/.ah_profile ]; then
+  autoload bashcompinit
+  bashcompinit
+  . ~/.ah_profile
+fi
+
